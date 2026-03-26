@@ -6,6 +6,8 @@ const liveloc=document.getElementById('livelocation')
 const element = document.getElementById('weather-display');
 const forecastContainer = document.querySelector('#next-days-weather');
 const element2=document.querySelector('#wheather-5days');
+let cities = JSON.parse(localStorage.getItem('weatherHistory')) || [];
+window.addEventListener('DOMContentLoaded', updateCityDropdown);
 
 async function checkWeather(city) {
     // 1. Corrected URL to the Weather Endpoint
@@ -21,8 +23,18 @@ async function checkWeather(city) {
         }
         
         const data = await response.json();
+        cities.unshift(city);
+        console.log(cities)
         console.log(data)
+        const cityName = data.name; 
 
+        // Only add if it's a new city
+        if (!cities.includes(cityName)) {
+            cities.unshift(cityName); // Add to the beginning of the list
+            // Save the updated array to localStorage
+            localStorage.setItem('weatherHistory', JSON.stringify(cities));
+            updateCityDropdown();
+        }
       
         // Note: OpenWeatherMap returns city name in 'data.name'
         document.getElementById('CityName').textContent = `${data.name}, ${data.sys.country}`;
@@ -169,3 +181,16 @@ liveloc.addEventListener('click', async () => {
         element2.classList.add('hidden');
     }
 });
+
+function updateCityDropdown() {
+    const dataList = document.getElementById('cities');
+    if (!dataList) return; 
+
+    dataList.innerHTML = '';
+
+    cities.forEach(city => {
+        const option = document.createElement('option');
+        option.value = city;
+        dataList.appendChild(option);
+    });
+}
