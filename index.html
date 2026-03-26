@@ -21,7 +21,7 @@
         class="flex-1 bg-slate-900 border border-slate-700 text-white px-5 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all">
       
       <div class="flex gap-2">
-        <button class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-medium transition-colors shadow-lg shadow-blue-900/20">
+        <button class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-medium transition-colors shadow-lg shadow-blue-900/20" id="searchbtn">
           Search
         </button>
         <button class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-3 rounded-xl transition-colors">
@@ -31,6 +31,7 @@
           </svg>
         </button>
       </div>
+      <span id="error" class="text-red-500"></span>
     </section>
 
     <section id="weather-display" class="bg-slate-900/50 border border-slate-800 p-10 rounded-3xl text-center relative overflow-hidden hidden">
@@ -40,18 +41,18 @@
       <p id="icon" class="text-7xl my-6">🌩️</p>
       
       <div class="space-y-1">
-        <p class="text-7xl font-black text-white">32°C</p>
-        <p class="text-lg text-slate-500 font-medium tracking-wide uppercase">Thunderstorm</p>
+        <p class="text-7xl font-black text-white" id="temp">32°C</p>
+        <p class="text-lg text-slate-500 font-medium tracking-wide uppercase" id="mode">Thunderstorm</p>
       </div>
 
       <div class="flex justify-center gap-12 mt-10 pt-8 border-t border-slate-800">
         <div>
           <p class="text-xs text-slate-500 uppercase tracking-widest mb-1">Humidity</p>
-          <p class="text-xl font-semibold text-slate-200">78%</p>
+          <p class="text-xl font-semibold text-slate-200" id="humid">78%</p>
         </div>
         <div>
-          <p class="text-xs text-slate-500 uppercase tracking-widest mb-1">Wind</p>
-          <p class="text-xl font-semibold text-slate-200">14 km/h</p>
+          <p class="text-xs text-slate-500 uppercase tracking-widest mb-1" >Wind</p>
+          <p class="text-xl font-semibold text-slate-200" id="wind">14 km/h</p>
         </div>
       </div>
     </section>
@@ -66,7 +67,7 @@
         </div>
         </div>
     </section>
-
   </main>
+  <script src="./index.js"></script>
 </body>
 </html>
