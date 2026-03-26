@@ -4,6 +4,8 @@ const cityInput = document.getElementById('city');
 const errorSpan = document.getElementById('error');
 const liveloc=document.getElementById('livelocation')
 const element = document.getElementById('weather-display');
+const forecastContainer = document.querySelector('#next-days-weather');
+const element2=document.querySelector('#wheather-5days');
 
 async function checkWeather(city) {
     // 1. Corrected URL to the Weather Endpoint
@@ -14,15 +16,14 @@ async function checkWeather(city) {
         
         if (!response.ok) {
             element.classList.add('hidden');
-            throw new Error("City not found. Please check the spelling!");
-
-            
+            element2.classList.add('hidden');
+            throw new Error("City not found. Please check the spelling!");   
         }
         
         const data = await response.json();
         console.log(data)
 
-        // 2. Updating your HTML elements
+      
         // Note: OpenWeatherMap returns city name in 'data.name'
         document.getElementById('CityName').textContent = `${data.name}, ${data.sys.country}`;
         
@@ -44,6 +45,7 @@ async function checkWeather(city) {
         
     } catch (error) {
         element.classList.add('hidden');
+        element2.classList.add('hidden');
         console.error(error);
         errorSpan.textContent=error.message;
     }
@@ -52,11 +54,17 @@ async function weatherof5days(city) {
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
     try {
         const forecastRes = await fetch(forecastUrl);
+        if (!forecastRes.ok) {
+            forecastContainer.innerHTML = '';
+            throw new Error("City not found. Please check the spelling!");
+        
+            
+        }
 const forecastData = await forecastRes.json();
 console.log(forecastData);
 
-const forecastContainer = document.querySelector('#next-days-weather');
-forecastContainer.innerHTML = ''; // Clear previous forecast
+
+forecastContainer.innerHTML = ''; 
 
 // Filter to get data for 12:00 PM each day
 const dailyData = forecastData.list.filter(item => item.dt_txt.includes("12:00:00"));
@@ -74,8 +82,8 @@ dailyData.forEach(day => {
           <p class="text-slate-500 text-xs font-bold uppercase">${dayName}</p>
             <p class="text-3xl my-3">${getWeatherEmoji(day.weather[0].main)}</p>
             <p class="text-xl font-bold text-white">${Math.round(day.main.temp)}°C</p>
-            <p class="text-xl font-bold text-white">${Math.round(day.main.humidity)}%</p>
-            <p class="text-xl font-bold text-white">${Math.round(day.wind.speed)}kmph</p>
+            <p class="text-sm text-white">${Math.round(day.main.humidity)}%</p>
+            <p class="text-sm text-white">${Math.round(day.wind.speed)}kmph</p>
         </div>
         
     `;
@@ -83,6 +91,7 @@ dailyData.forEach(day => {
         
     } catch (error) {
         console.error(error);
+        element2.classList.add('hidden');
         errorSpan.textContent=error.message;
     }
 }
@@ -105,7 +114,7 @@ searchBtn.addEventListener('click', () => {
     if (cityInput.value.trim() !== "") {
         checkWeather(cityInput.value);
         weatherof5days(cityInput.value);
-        
+        element2.classList.remove('hidden');
        errorSpan.textContent="";
     } else {
        errorSpan.textContent="Please enter a city name";
@@ -143,6 +152,7 @@ function getCityFromLiveLocation() {
 }
 
 liveloc.addEventListener('click', async () => {
+    errorSpan.textContent="fetching data......"
     try {
         const liveCity = await getCityFromLiveLocation();
         
@@ -150,10 +160,12 @@ liveloc.addEventListener('click', async () => {
             checkWeather(liveCity);
             weatherof5days(liveCity);
             errorSpan.textContent = "";
+            element2.classList.remove('hidden');
         }
     } catch (error) {
         console.error(error);
         errorSpan.textContent = "Could not fetch live location.";
         element.classList.add('hidden');
+        element2.classList.add('hidden');
     }
 });
