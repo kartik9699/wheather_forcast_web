@@ -24,17 +24,17 @@
         <button class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-medium transition-colors shadow-lg shadow-blue-900/20" id="searchbtn">
           Search
         </button>
-        <button class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-3 rounded-xl transition-colors">
+        <button class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-3 rounded-xl transition-colors" id="livelocation">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
         </button>
-      </div>
-      <span id="error" class="text-red-500"></span>
+      </div> 
     </section>
-
+    <span id="error" class="text-red-500"></span>
     <section id="weather-display" class="bg-slate-900/50 border border-slate-800 p-10 rounded-3xl text-center relative overflow-hidden hidden">
+        
       <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-600/10 blur-3xl"></div>
       
       <h3 id="CityName" class="text-2xl text-slate-400 font-medium">Mumbai, India</h3>
@@ -57,15 +57,10 @@
       </div>
     </section>
 
-    <section class="hidden">
-      <h4 class="text-slate-400 font-bold mb-4 ml-2 text-sm uppercase tracking-widest">Extended Forecast</h4>
-      <div id="next-days-weather" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl text-center hover:border-slate-600 transition-colors">
-          <p class="text-slate-500 text-xs font-bold uppercase">Tue</p>
-          <p class="text-3xl my-3">⛅</p>
-          <p class="text-xl font-bold text-white">29°C</p>
-        </div>
-        </div>
+    <section id="wheather-5days" class="" >
+        <h4 class="text-slate-400 font-bold mb-4 ml-2 text-sm uppercase tracking-widest">5 Days Forecast</h4>
+        <div id="next-days-weather" class="grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
+     
     </section>
   </main>
   <script src="./index.js"></script>
