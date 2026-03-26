@@ -3,6 +3,7 @@ const searchBtn = document.querySelector('#searchbtn');
 const cityInput = document.getElementById('city');
 const errorSpan = document.getElementById('error');
 const liveloc=document.getElementById('livelocation')
+const element = document.getElementById('weather-display');
 
 async function checkWeather(city) {
     // 1. Corrected URL to the Weather Endpoint
@@ -12,7 +13,10 @@ async function checkWeather(city) {
         const response = await fetch(url);
         
         if (!response.ok) {
+            element.classList.add('hidden');
             throw new Error("City not found. Please check the spelling!");
+
+            
         }
         
         const data = await response.json();
@@ -27,7 +31,7 @@ async function checkWeather(city) {
         const humidDisplay=document.querySelector('#humid'); 
         const windDisplay=document.querySelector('#wind');
         const modeDisplay=document.querySelector('#mode');
-        const element = document.getElementById('weather-display');
+        
         if (tempDisplay) {
             tempDisplay.textContent = `${Math.round(data.main.temp)}°C`;
             humidDisplay.textContent=`${Math.round(data.main.humidity)}%`;
@@ -39,6 +43,7 @@ async function checkWeather(city) {
         document.getElementById('icon').textContent = getWeatherEmoji(data.weather[0].main);
         
     } catch (error) {
+        element.classList.add('hidden');
         console.error(error);
         errorSpan.textContent=error.message;
     }
@@ -104,13 +109,14 @@ searchBtn.addEventListener('click', () => {
        errorSpan.textContent="";
     } else {
        errorSpan.textContent="Please enter a city name";
-       
+       element.classList.add('hidden');
     }
 });
 // 1. Rewrite this to return a Promise so we can 'await' it
 function getCityFromLiveLocation() {
     return new Promise((resolve, reject) => {
         if (!navigator.geolocation) {
+            element.classList.add('hidden');
             reject(new Error("Geolocation not supported"));
             return;
         }
@@ -148,5 +154,6 @@ liveloc.addEventListener('click', async () => {
     } catch (error) {
         console.error(error);
         errorSpan.textContent = "Could not fetch live location.";
+        element.classList.add('hidden');
     }
 });
