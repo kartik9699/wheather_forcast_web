@@ -1,13 +1,72 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./src/output.css" rel="stylesheet">
+  <title>Weather Cast - Dark</title>
 </head>
-<body>
-  <h1 class="text-3xl font-bold underline text-amber-500">
-    Hello world!
-  </h1>
+<body class="bg-black text-slate-200 min-h-screen font-sans p-6">
+
+  <header class="mb-12">
+    <h1 class="text-white text-4xl text-center font-bold tracking-tight">
+      Weather <span class="text-blue-500">Cast</span>
+    </h1>
+  </header>
+
+  <main class="max-w-3xl mx-auto space-y-10">
+    
+    <section id="search" class="flex flex-col sm:flex-row gap-3">
+      <input type="text" id="city" placeholder="Search city..." 
+        class="flex-1 bg-slate-900 border border-slate-700 text-white px-5 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+      
+      <div class="flex gap-2">
+        <button class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-medium transition-colors shadow-lg shadow-blue-900/20">
+          Search
+        </button>
+        <button class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-3 rounded-xl transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <section id="weather-display" class="bg-slate-900/50 border border-slate-800 p-10 rounded-3xl text-center relative overflow-hidden hidden">
+      <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-600/10 blur-3xl"></div>
+      
+      <h3 id="CityName" class="text-2xl text-slate-400 font-medium">Mumbai, India</h3>
+      <p id="icon" class="text-7xl my-6">🌩️</p>
+      
+      <div class="space-y-1">
+        <p class="text-7xl font-black text-white">32°C</p>
+        <p class="text-lg text-slate-500 font-medium tracking-wide uppercase">Thunderstorm</p>
+      </div>
+
+      <div class="flex justify-center gap-12 mt-10 pt-8 border-t border-slate-800">
+        <div>
+          <p class="text-xs text-slate-500 uppercase tracking-widest mb-1">Humidity</p>
+          <p class="text-xl font-semibold text-slate-200">78%</p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500 uppercase tracking-widest mb-1">Wind</p>
+          <p class="text-xl font-semibold text-slate-200">14 km/h</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="hidden">
+      <h4 class="text-slate-400 font-bold mb-4 ml-2 text-sm uppercase tracking-widest">Extended Forecast</h4>
+      <div id="next-days-weather" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl text-center hover:border-slate-600 transition-colors">
+          <p class="text-slate-500 text-xs font-bold uppercase">Tue</p>
+          <p class="text-3xl my-3">⛅</p>
+          <p class="text-xl font-bold text-white">29°C</p>
+        </div>
+        </div>
+    </section>
+
+  </main>
 </body>
 </html>
