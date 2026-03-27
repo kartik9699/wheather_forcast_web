@@ -1,4 +1,4 @@
-const apiKey = '94b71f7fa42ea907e56b6f62e03d56e1';
+const apiKey = '94b71f7fa42ea907e56b6f62e03d56e1';//openweathermap API key
 const searchBtn = document.querySelector('#searchbtn'); 
 const cityInput = document.getElementById('city');
 const errorSpan = document.getElementById('error');
@@ -8,9 +8,9 @@ const forecastContainer = document.querySelector('#next-days-weather');
 const element2=document.querySelector('#wheather-5days');
 let cities = JSON.parse(localStorage.getItem('weatherHistory')) || [];
 window.addEventListener('DOMContentLoaded', updateCityDropdown);
-
+//getting data for city weather for current
 async function checkWeather(city) {
-    // 1. Corrected URL to the Weather Endpoint
+    //url for fetching data off current weather from openweathermap
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     
     try {
@@ -30,13 +30,12 @@ async function checkWeather(city) {
 
         // Only add if it's a new city
         if (!cities.includes(cityName)) {
-            cities.unshift(cityName); // Add to the beginning of the list
+            cities.unshift(cityName); 
             // Save the updated array to localStorage
             localStorage.setItem('weatherHistory', JSON.stringify(cities));
             updateCityDropdown();
         }
       
-        // Note: OpenWeatherMap returns city name in 'data.name'
         document.getElementById('CityName').textContent = `${data.name}, ${data.sys.country}`;
         
         // Target the temperature,humidity,wind - using the specific ID
@@ -62,7 +61,9 @@ async function checkWeather(city) {
         errorSpan.textContent=error.message;
     }
 }
+//geting data of next 5 days weather
 async function weatherof5days(city) {
+    //url for fetching data off 5 days weather forcast from openweathermap
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
     try {
         const forecastRes = await fetch(forecastUrl);
@@ -121,7 +122,7 @@ function getWeatherEmoji(condition) {
     };
     return icons[condition] || '🌡️';
 }
-
+// eventlistener for search button
 searchBtn.addEventListener('click', () => {
     if (cityInput.value.trim() !== "") {
         checkWeather(cityInput.value);
@@ -133,7 +134,7 @@ searchBtn.addEventListener('click', () => {
        element.classList.add('hidden');
     }
 });
-// 1. Rewrite this to return a Promise so we can 'await' it
+//convert live geolocation to city
 function getCityFromLiveLocation() {
     return new Promise((resolve, reject) => {
         if (!navigator.geolocation) {
@@ -162,7 +163,7 @@ function getCityFromLiveLocation() {
         });
     });
 }
-
+// eventlistener for live location button
 liveloc.addEventListener('click', async () => {
     errorSpan.textContent="fetching data......"
     try {
@@ -181,7 +182,7 @@ liveloc.addEventListener('click', async () => {
         element2.classList.add('hidden');
     }
 });
-
+//update city to dropdown
 function updateCityDropdown() {
     const dataList = document.getElementById('cities');
     if (!dataList) return; 
